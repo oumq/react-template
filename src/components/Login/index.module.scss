@@ -1,0 +1,28 @@
+.loginContent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+  .inputWrap {
+    border-bottom: 1px solid #E7EAF1 !important;
+    padding: 10px 10px;
+  }
+  .buttonWrap {
+    width: 100%;
+  }
+  .loginLabel {
+    margin: 80px 0 32px 0;
+    text-align: center;
+    color: #396afe;
+    font-size: 32px;
+  }
+  .loginForm {
+    padding: 0 40px 0 40px;
+    .formItem {
+      margin-bottom: 12px;
+    }
+  }
+}

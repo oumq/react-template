@@ -1,0 +1,15 @@
+.registerContent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  .registerLabel {
+    margin: 80px 0 50px 0;
+    text-align: center;
+    color: #396afe;
+    font-size: 28px;
+  }
+}
