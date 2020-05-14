@@ -90,7 +90,8 @@
   },
   "scripts": {
     "start": "concurrently \"node scripts/start.js\" \"npm run mock\"",
-    "build": "set GENERATE_SOURCEMAP=false && node scripts/build.js",
+    "build": "set GENERATE_SOURCEMAP=false&& node scripts/build.js",
+    "build-linux": "export GENERATE_SOURCEMAP=false && node scripts/build.js",
     "test": "node scripts/test.js",
     "mock": "node config/mockServer.js"
   },
@@ -181,10 +182,9 @@
         {
           "libraryName": "antd",
           "libraryDirectory": "es",
-          "style": true
+          "style": "css"
         }
       ]
     ]
-  },
-  "homepage": "https://oumq.github.io/react-template"
+  }
 }

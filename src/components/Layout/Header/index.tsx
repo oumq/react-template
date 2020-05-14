@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { inject, observer } from 'mobx-react'
 import { Layout } from 'antd'
-import style from './index.module.scss'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+
+import style from './index.module.scss'
 import { LayoutModel } from '@/store/LayoutStore'
 
 interface InjectedProps {

@@ -120,7 +120,7 @@ module.exports = function(webpackEnv) {
         {
           loader: require.resolve(preProcessor),
           options: {
-            sourceMap: true,
+            sourceMap: isEnvProduction && shouldUseSourceMap,
           },
         }
       );
