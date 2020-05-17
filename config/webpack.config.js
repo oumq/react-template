@@ -49,6 +49,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -110,6 +112,23 @@ module.exports = function(webpackEnv) {
       },
     ].filter(Boolean);
     if (preProcessor) {
+      let loader = {
+        loader: require.resolve(preProcessor),
+        options: Object.assign(
+          {},
+          {
+            sourceMap: isEnvProduction && shouldUseSourceMap
+          },
+          preProcessor === 'less-loader'? {
+            lessOptions: {
+              javascriptEnabled: true,
+              modifyVars: {
+                'primary-color': '#396afe'
+              }
+            }
+          } : undefined
+        )
+      }
       loaders.push(
         {
           loader: require.resolve('resolve-url-loader'),
@@ -117,12 +136,7 @@ module.exports = function(webpackEnv) {
             sourceMap: isEnvProduction && shouldUseSourceMap,
           },
         },
-        {
-          loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: isEnvProduction && shouldUseSourceMap,
-          },
-        }
+        loader
       );
     }
     return loaders;
@@ -344,26 +358,6 @@ module.exports = function(webpackEnv) {
           ],
           include: paths.appSrc,
         },
-        // 配置antd全局颜色
-        {
-          test: /\.less$/,
-          use: [{
-            loader: 'style-loader',
-          }, {
-            loader: 'css-loader', // translates CSS into CommonJS
-          }, {
-            loader: 'less-loader', // compiles Less to CSS
-            options: {
-              sourceMap: true,
-              lessOptions: {
-                modifyVars: {
-                  'primary-color': '#396afe'
-                },
-                javascriptEnabled: true
-              }
-            },
-          }]
-        },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -504,6 +498,31 @@ module.exports = function(webpackEnv) {
                   },
                 },
                 'sass-loader'
+              ),
+            },
+            {
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'less-loader'
+              ),
+              sideEffects: true,
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: {
+                    getLocalIdent: getCSSModuleLocalIdent,
+                  },
+                },
+                'less-loader'
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
