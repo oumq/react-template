@@ -21,9 +21,11 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const paths = require('./paths');
 const modules = require('./modules');
 const getClientEnvironment = require('./env');
+const systemConfig = require('./system.config')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -51,6 +53,10 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
+
+function _resolve(track) {
+  return path.join(__dirname, '..', track);
+}
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -122,9 +128,7 @@ module.exports = function(webpackEnv) {
           preProcessor === 'less-loader'? {
             lessOptions: {
               javascriptEnabled: true,
-              modifyVars: {
-                'primary-color': '#396afe'
-              }
+              modifyVars: systemConfig.theme
             }
           } : undefined
         )
@@ -212,6 +216,8 @@ module.exports = function(webpackEnv) {
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
+          // 使用多进程并行运行来提高构建速度
+          parallel: true,
           terserOptions: {
             parse: {
               // We want terser to parse ecma 8 code. However, we don't want it
@@ -276,7 +282,28 @@ module.exports = function(webpackEnv) {
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: {
         chunks: 'all',
-        name: false,
+        name: true,
+        // cacheGroups: {
+        //   reactVendor: {
+        //     name: 'reactVendor',
+        //     test: /(react|react-dom|react-router-dom|react-router|mobx|mobx-react|babel-polyfill)/,
+        //     chunks: 'initial',
+        //     priority: 10,
+        //   },
+        //   components: {
+        //     test: _resolve('src/components'),
+        //     name: 'components',
+        //     minChunks: 1,
+        //     reuseExistingChunk: true,
+        //     priority: 1
+        //   },
+        //   common: {
+        //     test: /[\\/]node_modules[\\/]/,
+        //     name: 'common',
+        //     priority: 2,
+        //     minChunks: 2,
+        //   },
+        // }
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
@@ -303,7 +330,7 @@ module.exports = function(webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
-        '@': path.join(__dirname, '..', 'src'),
+        '@': _resolve('src'),
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
@@ -689,6 +716,8 @@ module.exports = function(webpackEnv) {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
+      // webpack-bundle-analyzer
+      isEnvProduction && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.
