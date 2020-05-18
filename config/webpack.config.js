@@ -39,6 +39,8 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 
 const isExtendingEslintConfig = process.env.EXTEND_ESLINT === 'true';
 
+const analyzer = process.env.REPORT === 'true';
+
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
 );
@@ -717,7 +719,7 @@ module.exports = function(webpackEnv) {
           formatter: isEnvProduction ? typescriptFormatter : undefined,
         }),
       // webpack-bundle-analyzer
-      isEnvProduction && new BundleAnalyzerPlugin(),
+      isEnvProduction && analyzer && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell webpack to provide empty mocks for them so importing them works.
