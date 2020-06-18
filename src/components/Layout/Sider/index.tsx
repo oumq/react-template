@@ -20,6 +20,10 @@ const MySider: React.FC = (props) => {
     layoutStore: { collapsed },
   } = injected()
 
+  const { children } = props
+
+  console.log('sider', children)
+
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className={style.logo}></div>

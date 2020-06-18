@@ -18,8 +18,6 @@ const MyHeader: React.FC = (props) => {
     return props as InjectedProps
   }
 
-  console.log(injected())
-
   const {
     layoutStore: { collapsed, toggle }
   } = injected()

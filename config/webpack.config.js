@@ -21,7 +21,7 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const paths = require('./paths');
 const modules = require('./modules');
 const getClientEnvironment = require('./env');
-const systemConfig = require('./system.config')
+const systemConfig = require('../src/config')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
@@ -285,27 +285,27 @@ module.exports = function(webpackEnv) {
       splitChunks: {
         chunks: 'all',
         name: true,
-        // cacheGroups: {
-        //   reactVendor: {
-        //     name: 'reactVendor',
-        //     test: /(react|react-dom|react-router-dom|react-router|mobx|mobx-react|babel-polyfill)/,
-        //     chunks: 'initial',
-        //     priority: 10,
-        //   },
-        //   components: {
-        //     test: _resolve('src/components'),
-        //     name: 'components',
-        //     minChunks: 1,
-        //     reuseExistingChunk: true,
-        //     priority: 1
-        //   },
-        //   common: {
-        //     test: /[\\/]node_modules[\\/]/,
-        //     name: 'common',
-        //     priority: 2,
-        //     minChunks: 2,
-        //   },
-        // }
+        cacheGroups: {
+          reactVendor: {
+            name: 'reactVendor',
+            test: /(react|react-dom|react-router-dom|react-router|mobx|mobx-react|babel-polyfill)/,
+            chunks: 'initial',
+            priority: 10,
+          },
+          components: {
+            test: _resolve('src/components'),
+            name: 'components',
+            minChunks: 2,
+            reuseExistingChunk: true,
+            priority: 1
+          },
+          // common: {
+          //   test: /[\\/]node_modules[\\/]/,
+          //   name: 'common',
+          //   priority: 2,
+          //   minChunks: 2,
+          // },
+        }
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985

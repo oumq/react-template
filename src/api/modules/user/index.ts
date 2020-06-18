@@ -6,6 +6,6 @@ export interface LoginParamsType {
 }
 
 // 用户登录接口
-export const login: Function = async (params: LoginParamsType) => {
+export const login = (params: LoginParamsType) => {
   return server.post('/user/login', params)
 }

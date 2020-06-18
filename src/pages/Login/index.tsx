@@ -13,6 +13,8 @@ const Login: React.FC = (props) => {
 
   const [state, setState] = useState('')
 
+  console.log(props)
+
   const toggle = (): void => {
     if (state === '') {
       setState('register')

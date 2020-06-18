@@ -6,10 +6,14 @@ import style from './index.module.scss'
 const { Content } = Layout
 
 const MyContent: React.FC = props => {
+  console.log('content', props)
+  const { children } = props
   return (
     <Content
       className={style.background}
-    ></Content>
+    >
+      {children}
+    </Content>
   )
 }
 

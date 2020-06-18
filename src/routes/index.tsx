@@ -1,42 +1,52 @@
 import React from 'react'
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
-import { staticRoute as routes } from './config'
-import AsyncComponent from '@/components/AsyncComponent'
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Routes as routes } from './config'
+import Authorized from '@/components/Authorized'
 import { RouteConfig } from '@/models/index'
 
 const AppRouter: React.FC = (props) => {
-  return (
-    <Router>
+  // 路由遍历递归渲染
+  const renderRoute = (routes: RouteConfig[]) => {
+    return routes ? (
       <Switch>
         {routes.map((route: RouteConfig) => {
-          const { name, path, component, exact, redirect } = route
+          const { path, exact, redirect, children } = route
           if (redirect) {
             return (
               <Redirect
-                key={name}
+                key={path}
                 from={path}
                 to={redirect}
-                exact={exact}
+                exact={exact || false}
               ></Redirect>
             )
           }
           return (
             <Route
-              key={name}
+              key={path}
               path={path}
-              exact={exact}
-              render={(props: any) => (
-                <AsyncComponent componentPath={component}></AsyncComponent>
-              )}
+              exact={exact || false}
+              render={(props: any) => {
+                // 嵌套路由
+                if (children) {
+                  return (
+                    <Authorized {...route} {...props}>{renderRoute(children)}</Authorized>
+                  )
+                }
+                return <Authorized {...route} {...props}></Authorized>
+              }}
             ></Route>
           )
         })}
       </Switch>
+    ) : null
+  }
+
+  console.log('route', renderRoute(routes))
+
+  return (
+    <Router>
+      {renderRoute(routes)}
     </Router>
   )
 }

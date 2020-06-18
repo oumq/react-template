@@ -3,7 +3,7 @@ export interface RouteConfig {
   title?: string
   icon?: React.ReactNode
   path?: string
-  authority?: string[] | string
+  authority?: boolean
   component?: string
   exact?: boolean
   redirect?: string

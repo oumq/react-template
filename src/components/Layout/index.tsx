@@ -6,15 +6,17 @@ import Sider from './Sider'
 import Footer from './Footer'
 
 const MyLayout: React.FC = (props) => {
+  console.log('layout', props)
   const style: any = {
-    minHeight: '100vh'
+    minHeight: '100vh',
   }
+  const { children } = props
   return (
     <Layout style={style}>
-      <Sider></Sider>
+      <Sider>{children}</Sider>
       <Layout>
         <Header></Header>
-        <Content></Content>
+        <Content>{children}</Content>
         <Footer></Footer>
       </Layout>
     </Layout>

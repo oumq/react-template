@@ -1,8 +1,9 @@
 import React from 'react'
+import { inject, observer } from 'mobx-react'
+import { useHistory } from 'react-router-dom'
 
 import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { login } from '@/api/modules/user'
 
 import style from './index.module.scss'
 
@@ -15,19 +16,40 @@ import style from './index.module.scss'
 // ]
 // declare type ValidateStatus = typeof ValidateStatuses[number]
 
-interface IProps {
+interface LoginWrapperProps {
   styleProp: any
   stateProp: string
 }
 
-const LoginWrapper: React.FC<IProps> = (props) => {
+const LoginWrapper: React.FC<LoginWrapperProps> = (props: any) => {
+  const history = useHistory()
+
   const onFinishLogin = (values: any) => {
-    login(values).then((res: any) => {
-      console.log(res)
-    })
+    userLogin(values)
+      .then((res: any) => {
+        if (res) {
+          history.push('/')
+        }
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+    console.log(values)
   }
 
-  const { styleProp, stateProp } = props
+  // 用户名校验规则
+  const userNameRules = [{ required: true, message: '请输入用户名' }]
+
+  // 密码校验规则
+  const pwdRules = [{ required: true, message: '请输入密码' }]
+
+  const injected = () => {
+    return props as LoginWrapperProps
+  }
+
+  const { styleProp, stateProp } = injected()
+
+  const { userLogin } = props.userStore
 
   return (
     <div
@@ -37,14 +59,19 @@ const LoginWrapper: React.FC<IProps> = (props) => {
     >
       <h2 className={style.loginLabel}>登录</h2>
       <Form className={style.loginForm} size="large" onFinish={onFinishLogin}>
-        <Form.Item name="userName" className={style.formItem} hasFeedback>
+        <Form.Item
+          name="userName"
+          className={style.formItem}
+          hasFeedback
+          rules={userNameRules}
+        >
           <Input
             prefix={<UserOutlined />}
             className={style.inputWrap}
             placeholder="请输入账号"
           />
         </Form.Item>
-        <Form.Item name="password" className={style.formItem}>
+        <Form.Item name="password" className={style.formItem} rules={pwdRules}>
           <Input
             type="password"
             className={style.inputWrap}
@@ -65,4 +92,4 @@ const LoginWrapper: React.FC<IProps> = (props) => {
   )
 }
 
-export default LoginWrapper
+export default inject('userStore')(observer(LoginWrapper))
