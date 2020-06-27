@@ -58,7 +58,7 @@ class Server {
       },
       (error: AxiosError) => {
         NProgress.done()
-        this.errorHandler(error)
+        return this.errorHandler(error)
       }
     )
   }
