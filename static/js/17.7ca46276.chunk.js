@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[17],{43:function(e,t){e.exports={whiteList:["/login"],theme:{"primary-color":"#396afe"}}}}]);

@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[19],{56:function(t,e,a){"use strict";a.r(e);var n=a(0),c=a.n(n);e.default=function(){return c.a.createElement("div",null,"I am Icon")}}}]);

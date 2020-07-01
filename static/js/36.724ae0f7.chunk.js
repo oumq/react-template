@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[36],{165:function(t,e,n){t.exports={content:"Footer_content__2Q1KO"}}}]);

@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[37],{166:function(e,t,r){e.exports={background:"Header_background__3gh-U",trigger:"Header_trigger__18_i-"}}}]);

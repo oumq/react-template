@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[20],{57:function(e,t,a){"use strict";a.r(t);var n=a(0),c=a.n(n);t.default=function(){return c.a.createElement("div",null,"I am Table")}}}]);

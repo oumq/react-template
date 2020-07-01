@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[24],{110:function(t,e,n){var a=n(501).createProxyMiddleware;t.exports=function(t){t.use(a("/api",{target:"http://localhost:3010",changeOrigin:!0,pathRewrite:{"^/api":"/"}}))}},517:function(t,e){},519:function(t,e){},531:function(t,e){},533:function(t,e){}}]);

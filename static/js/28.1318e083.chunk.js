@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[28],{108:function(t,e,a){"use strict";a.r(e);a(345);var r=a(363),n=(a(237),a(249)),s=a(0),c=a.n(s);e.default=function(){return c.a.createElement(r.a,{status:"500",title:"500",subTitle:"Sorry, something went wrong.",extra:c.a.createElement(n.a,{type:"primary"},"Back Home")})}}}]);

@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[40],{171:function(e,o,c){e.exports={box:"Neuomorphic_box__3qYEN",circle:"Neuomorphic_circle__osG4b",heart:"Neuomorphic_heart__2L6Cd"}}}]);

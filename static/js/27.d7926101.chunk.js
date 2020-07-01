@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[27],{107:function(e,t,a){"use strict";a.r(t);a(345);var r=a(363),s=(a(237),a(249)),i=a(0),n=a.n(i);t.default=function(){return n.a.createElement(r.a,{status:"404",title:"404",subTitle:"Sorry, the page you visited does not exist.",extra:n.a.createElement(s.a,{type:"primary"},"Back Home")})}}}]);

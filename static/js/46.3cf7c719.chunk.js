@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-template"]=this["webpackJsonpreact-template"]||[]).push([[46],{173:function(e,t,a){e.exports=a.p+"static/media/work1.beaeecd3.svg"}}]);
