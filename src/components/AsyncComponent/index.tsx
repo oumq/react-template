@@ -1,28 +1,30 @@
 import React from 'react'
 
+import { RouteConfig } from '@/models/index'
+
 interface IProps {
-  componentPath: any
+  route: RouteConfig
 }
 
 interface IState {
-  component: any
+  _component: any
 }
 
 class AsyncComponent extends React.Component<IProps, IState> {
   state = {
-    component: null
+    _component: null
   }
 
   async componentDidMount() {
-    const { componentPath } = this.props
-    const { default: component } = await import(`../../../src${componentPath}`)
+    const { component } = this.props.route
+    const { default: __component } = await import(`../../../src${component}`)
     this.setState({
-      component: component
+      _component: __component
     })
   }
 
   render() {
-    const C: any = this.state.component
+    const C: any = this.state._component
     return C ? <C {...this.props} /> : null
   }
 }

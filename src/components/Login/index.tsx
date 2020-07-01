@@ -34,7 +34,6 @@ const LoginWrapper: React.FC<LoginWrapperProps> = (props: any) => {
       .catch((err: any) => {
         console.log(err)
       })
-    console.log(values)
   }
 
   // 用户名校验规则

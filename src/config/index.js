@@ -1,6 +1,6 @@
 module.exports = {
   whiteList: [
-    '/login', '*'
+    '/login'
   ],
   theme: {
     'primary-color': '#396afe'

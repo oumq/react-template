@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react'
 import { Redirect } from 'react-router-dom'
 
 import AsyncComponent from '@/components/AsyncComponent'
-// import { RouteConfig } from '@/models/index'
 import systemConfig from '@/config'
 
 import { UserModel } from '@/store/UserStore'
@@ -12,16 +11,16 @@ interface InjectedProps {
   userStore: UserModel
 }
 
+
 /**
  * 全局路由拦截、鉴权
  * @param props
  */
 const Authorized: React.FC = (props: any) => {
+  console.log(props)
   const whiteList: Array<string> = systemConfig.whiteList
 
-  // console.log('Authorized', props)
-
-  const { path, name, children, component, authority } = props
+  const { path, name, children, component, authority } = props.route
 
   const injected = () => {
     return props as InjectedProps
@@ -42,12 +41,12 @@ const Authorized: React.FC = (props: any) => {
   const componentWrapper = (children: any, component: any) => {
     return children ? (
       component ? (
-        <AsyncComponent componentPath={component}>{children}</AsyncComponent>
+        <AsyncComponent route={props.route}></AsyncComponent>
       ) : (
         <>{children}</>
       )
     ) : (
-      <AsyncComponent componentPath={component}></AsyncComponent>
+      <AsyncComponent route={props.route}></AsyncComponent>
     )
   }
 
